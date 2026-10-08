@@ -271,7 +271,7 @@ function fillCase(i){
     });
     $('.case__actions',caseEl).before(sh);
   }
-  var lk=$('#case-link');lk.href=p.link?p.link[0]:'https://github.com/bulawincj01558-lab';$('#case-link-label').textContent=p.link?p.link[1]:'My GitHub';
+  var lk=$('#case-link');lk.href=p.link?p.link[0]:'https://github.com/Cavhenn';$('#case-link-label').textContent=p.link?p.link[1]:'My GitHub';
   caseEl.scrollTop=0;
 }
 function openCase(i,e){
@@ -411,7 +411,7 @@ later(function term(){
     traceroute:function(){seq(HOPS.map(function(h,i){return [' '+i+'  '+(i?'10.0.'+i+'.1':'192.168.1.1')+'  '+h.ms+' ms  '+h.label]}).concat([['destination reached.','t-in']]),160)},
     whoami:function(){out('visitor. I\'m Cavhen, a web developer and network specialist in Cagayan de Oro.')},
     email:function(){out('hubkeyvhen@gmail.com','t-in')},
-    github:function(){out('https://github.com/bulawincj01558-lab','t-in')},
+    github:function(){out('https://github.com/Cavhenn','t-in')},
     resume:function(){out('Downloading Cavhen-Bulawin-Resume.pdf','t-in');var a=d.createElement('a');a.href='assets/Cavhen-Bulawin-Resume.pdf';a.download='';d.body.appendChild(a);a.click();a.remove()},
     clear:function(){log.textContent=''},
     sudo:function(){out('Permission denied. Nice try.','t-dim')},
