@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Request Timed Out</title>
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#F2EFE8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0E0E0E" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="/portfolio/assets/fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(/portfolio/assets/fonts/instrument-serif.woff2) format("woff2")}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(/portfolio/assets/fonts/instrument-serif-italic.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 800;font-display:swap;src:url(/portfolio/assets/fonts/jetbrains-mono.woff2) format("woff2")}
+@font-face{font-family:"IS Fallback";font-style:normal;src:local("Georgia");size-adjust:75.4%}
+@font-face{font-family:"IS Fallback";font-style:italic;src:local("Georgia Italic"),local("Georgia-Italic");size-adjust:81%}
+@font-face{font-family:"JBM Fallback";src:local("Consolas");size-adjust:109.1%}
+@font-face{font-family:"JBM Fallback Mac";src:local("Menlo-Regular"),local("Menlo");size-adjust:100%}
+:root{--paper:#F2EFE8;--ink:#0E0E0E;--graphite:#58554D;--rule:rgba(14,14,14,.16);--signal:#C8FF2E;--on-signal:#0E0E0E;--focus:#0E0E0E;color-scheme:only light}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#0E0E0E;--ink:#F2EFE8;--graphite:#A3A096;--rule:rgba(242,239,232,.18);--focus:#C8FF2E;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#0E0E0E;--ink:#F2EFE8;--graphite:#A3A096;--rule:rgba(242,239,232,.18);--focus:#C8FF2E;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+html{-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh;background:var(--paper);color:var(--ink);font-family:"Instrument Serif","IS Fallback","Iowan Old Style","Palatino Linotype",Georgia,serif;display:grid;grid-template-rows:auto 1fr auto;padding:calc(env(safe-area-inset-top,0px) + 24px) clamp(16px,3vw,40px) calc(env(safe-area-inset-bottom,0px) + 24px);gap:clamp(32px,6vh,64px)}
+.mono{font-family:"JetBrains Mono","JBM Fallback","JBM Fallback Mac",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:13px;line-height:1.6}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.mark{font-size:28px;font-style:italic;text-decoration:none}
+main{align-self:center;display:grid;gap:clamp(24px,4vh,40px);max-width:60rem}
+.log{color:var(--graphite);display:grid;gap:2px;overflow-wrap:anywhere}
+.log .t{color:var(--ink)}
+h1{font-size:clamp(3.5rem,13vw,11rem);font-weight:400;line-height:.85;letter-spacing:-.03em}
+p.lede{font-size:clamp(1.25rem,2.6vw,1.75rem);line-height:1.2;max-width:28ch}
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px;background:var(--ink);color:var(--paper);text-decoration:none;justify-self:start}
+.btn:hover,.btn:focus-visible{background:var(--signal);color:var(--on-signal)}
+.btn i{width:8px;height:8px;border-radius:50%;background:currentColor}
+footer{border-top:1px solid var(--rule);padding-top:16px;color:var(--graphite)}
+</style>
+</head>
+<body>
+<header><a class="mark" href="/portfolio/" aria-label="Cavhen, home">cavhen</a></header>
+<main>
+  <div class="log mono" aria-hidden="true">
+    <p class="t">$ traceroute <span id="path">cavhen/this-page</span></p>
+    <p>1&nbsp;&nbsp;your screen&nbsp;&nbsp;&nbsp;&nbsp;3 ms</p>
+    <p>2&nbsp;&nbsp;10.0.2.1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17 ms</p>
+    <p>3&nbsp;&nbsp;* * *</p>
+    <p>4&nbsp;&nbsp;* * *</p>
+  </div>
+  <h1>Request timed&nbsp;out.</h1>
+  <p class="lede">This page isn't on the network. The route home still works.</p>
+  <a class="btn mono" href="/portfolio/"><i aria-hidden="true"></i>Back to origin</a>
+</main>
+<footer class="mono"><p>404 · cavhen</p></footer>
+<script>
+(function(){try{var t=localStorage.getItem('cvh-theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}var p=document.getElementById('path');if(p)p.textContent='cavhen'+location.pathname.replace(/^\/portfolio/,'')})();
+</script>
+</body>
+</html>
