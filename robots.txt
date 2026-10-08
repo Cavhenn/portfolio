@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cavhenbulawin072607-create.github.io/portfolio/sitemap.xml
+Sitemap: https://cavhenn.github.io/portfolio/sitemap.xml
