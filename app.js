@@ -23,14 +23,20 @@ var HOPS=[
 ];
 
 var PROJECTS=[
-  {idx:'02.1',title:'MLBB Tournament Hub',img:'assets/mlbb.webp',alt:'Ink drawing of a tournament bracket whose lines converge on one lime node marked final.',type:'Web app',stack:'PHP, MySQL, XAMPP',status:'In progress. Class presentation and launch on Oct 23.',problem:'Mobile Legends tournaments lived in group chats and scattered spreadsheets.',built:'A PHP and MySQL app to register teams, schedule matches and record results, with full create, read, update and delete for every record.',result:'Teams, matches and scores in one place instead of five chats.'},
-  {idx:'02.2',title:'NetAcad School Network',img:'assets/netacad.webp',alt:'Isometric line drawing of a school network: a router, switches, desktop clusters, a Wi-Fi point and a route marked in lime.',type:'Network design',stack:'Cisco Packet Tracer, DNS, FTP, SMTP/POP3, WPA2',status:'Cisco NetAcad final project, 2026',problem:'Three school departments needed shared files, email, a website and student Wi-Fi on one network.',built:'A 192.168.10.0/24 network with a router, four switches, DNS, web, FTP and email servers, WPA2 Wi-Fi, CCTV and a backup server.',result:'7 of 7 service tests passed.',detail:[['Layout','A hierarchical star. One Cisco 2911 router, a main 2960 switch, and one switch per department. If one department switch fails, the others keep working.'],['IP plan','Static addresses grouped by role: .1 to .9 for core gear, the .10s for Admin, .20s for Faculty, .30s for IT, .40s for printers, .50s for student Wi-Fi.'],['How I tested it','From real client devices, not only ping: an FTP upload, an email from a teacher to the principal, DNS lookups, the school site in a browser, Wi-Fi from a student laptop.'],['What broke','Six things, each fixed by reading the error closely. Packet Tracer rejects mailboxes ending in .local, so mail goes to @school.com while the server stays mail.school.local.'],['Next time','A separate VLAN for each department, the student Wi-Fi and the camera.']],shots:[
-    {src:'assets/netacad-topology.webp',w:1534,h:590,alt:'Cisco Packet Tracer topology: a 2911 router above a main 2960 switch, which links to Admin, Faculty and IT switches with their PCs, printers and two servers, plus a wireless access point serving two student laptops and a CCTV webcam.',cap:'The finished topology in Cisco Packet Tracer.'},
-    {src:'assets/netacad-ping.webp',w:532,h:806,alt:'Command prompt on Admin PC1 pinging 192.168.10.1, .2, .5 and .20. Every test shows 4 sent, 4 received, 0% loss.',cap:'Ping tests from Admin PC1: 0% packet loss on every address.'}
+  {idx:'02.1',title:'MLBB Tournament Hub',img:'assets/mlbb-login.webp',fit:'contain',thumb:'assets/mlbb-sm.webp',alt:'The Tournament Hub log-in page: a split screen with the headline Welcome to the Land of Dawn on the left and the log-in form on the right.',type:'Web app',stack:'PHP, MySQL, XAMPP',status:'In development. Class launch, October 2026.',problem:'Mobile Legends tournaments lived in group chats and scattered spreadsheets.',built:'A PHP and MySQL app to register teams, schedule matches and record results, with full create, read, update and delete for every record.',result:'Teams, matches and scores in one place instead of five chats.',shots:[
+    {src:'assets/mlbb-dashboard.webp',w:1491,h:722,wide:1,alt:'Tournament Hub dashboard with the next match, totals for teams, players, tournaments and matches played, latest results and quick actions.',cap:'The admin dashboard.'},
+    {src:'assets/mlbb-teams.webp',w:1526,h:716,alt:'Teams page with a register-a-team form and a table of registered teams.',cap:'Registering a team.'},
+    {src:'assets/mlbb-matches.webp',w:1486,h:698,alt:'Matches page with a form to schedule a match between two teams and a table for results.',cap:'Scheduling matches and recording results.'},
+    {src:'assets/mlbb-schema.webp',w:983,h:681,wide:1,alt:'phpMyAdmin designer view of the database: users, teams, players, tournaments, matches and audit_logs tables linked by foreign keys.',cap:'The MySQL schema: six tables linked by foreign keys.'}
   ]},
-  {idx:'02.3',title:'Java Swing Games',img:'assets/java.webp',alt:'Four line drawings on a grid: a pixel snake, stacked mahjong tiles, a breakout paddle and a small spaceship.',type:'Desktop games',stack:'Java, Swing, OOP',status:'Personal project',problem:'Class labs stopped before the fun part: game loops, collisions and state.',built:'Snake, Mahjong Solitaire, Breakout and Star Reaper as desktop games in Java Swing.',result:'4 games, each packaged as a runnable JAR.'},
-  {idx:'02.4',title:'Neon Jackpot, Table Twenty-One, Noir Roulette',img:'assets/casino.webp',alt:'Technical drawings of a slot machine showing three sevens, a blackjack hand and a roulette wheel with one lime pocket.',type:'Browser games',stack:'HTML5, CSS, JavaScript',status:'Personal project',problem:'I wanted to see how much game feel plain HTML, CSS and JavaScript can deliver.',built:'Three casino games in the browser: a slot machine, blackjack and roulette.',result:'Three playable games, each with its own look.'},
-  {idx:'02.5',title:'Marigold & Co',img:'assets/marigold.webp',alt:'Botanical line drawing of a marigold with a lime flower head over faint layout guides.',type:'Website',stack:'HTML, CSS, JavaScript',status:'Design and build',problem:'A flower shop needed a site that feels as warm as the shop itself.',built:'A responsive website that shows off the bouquets and makes it easy to ask about an order.',result:'Built phone-first, because that is where people order flowers.'}
+  {idx:'02.2',title:'NetAcad School Network',img:'assets/netacad-topology.webp',fit:'contain',thumb:'assets/netacad-shot-sm.webp',alt:'Cisco Packet Tracer topology of the finished school network: a router, a main switch, three department switches with their PCs and servers, and a wireless access point.',type:'Network design',stack:'Cisco Packet Tracer, DNS, FTP, SMTP/POP3, WPA2',status:'Completed. Cisco NetAcad final project, 2026.',problem:'Three school departments needed shared files, email, a website and student Wi-Fi on one network.',built:'A 192.168.10.0/24 network with a router, four switches, DNS, web, FTP and email servers, WPA2 Wi-Fi, CCTV and a backup server.',result:'7 of 7 service tests passed.',detail:[['Layout','A hierarchical star. One Cisco 2911 router, a main 2960 switch, and one switch per department. If one department switch fails, the others keep working.'],['IP plan','Static addresses grouped by role: .1 to .9 for core gear, the .10s for Admin, .20s for Faculty, .30s for IT, .40s for printers, .50s for student Wi-Fi.'],['How I tested it','From real client devices, not only ping: an FTP upload, an email from a teacher to the principal, DNS lookups, the school site in a browser, Wi-Fi from a student laptop.'],['What broke','Six things, each fixed by reading the error closely. Packet Tracer rejects mailboxes ending in .local, so mail goes to @school.com while the server stays mail.school.local.'],['Next time','A separate VLAN for each department, the student Wi-Fi and the camera.']],shots:[
+    {src:'assets/netacad-topology.webp',w:1522,h:518,wide:1,alt:'Cisco Packet Tracer topology: a 2911 router above a main 2960 switch, which links to Admin, Faculty and IT switches with their PCs, printers and two servers, plus a wireless access point for student laptops and a CCTV webcam.',cap:'The finished topology, with every department labelled.'},
+    {src:'assets/netacad-website.webp',w:1514,h:702,wide:1,alt:'The school portal web page at www.school.local, opened in a teacher PC browser.',cap:'The school website, served from the main server.'},
+    {src:'assets/netacad-ping.webp',w:521,h:622,alt:'Command prompt on the Principal PC pinging the router and servers. Every test shows 4 sent, 4 received, 0% loss.',cap:'Ping tests: 0% packet loss.'},
+    {src:'assets/netacad-dns.webp',w:522,h:646,alt:'nslookup on a teacher PC resolving www, ftp and mail .school.local to 192.168.10.2.',cap:'DNS resolving every school.local name.'},
+    {src:'assets/netacad-ftp.webp',w:525,h:812,alt:'FTP session on a teacher PC uploading report.txt to ftp.school.local and listing the server files.',cap:'FTP upload to the file server.'},
+    {src:'assets/netacad-email.webp',w:522,h:266,alt:'Principal PC mail client showing a Monthly Report email from teacher1@school.com.',cap:'Email from a teacher, received by the principal.'}
+  ]}
 ];
 
 var cssVar=function(n){return getComputedStyle(root).getPropertyValue(n).trim()};
@@ -235,7 +241,7 @@ $$('.proj__btn').forEach(function(b){
   b.addEventListener('pointerenter',function(e){
     ping();
     if(!fine||!pqx||!isMouse(e))return;
-    pimg.src=PROJECTS[i].img.replace('.webp','-sm.webp');
+    pimg.src=PROJECTS[i].thumb||PROJECTS[i].img.replace('.webp','-sm.webp');
     preview.classList.add('is-on');
     if(useCursor){tag.textContent='ping 10.0.2.'+(i+1)+' · '+(14+i*3)+'ms';cursor.classList.add('is-tag')}
   });
@@ -251,7 +257,7 @@ function fillCase(i){
   $('#case-idx').textContent=p.idx+' · connected in '+(14+i*3)+'ms';
   $('#case-conn').textContent='connected · 10.0.2.'+(i+1);
   $('#case-title').textContent=p.title;
-  var img=$('#case-img');img.src=p.img;img.alt=p.alt;
+  var img=$('#case-img');img.src=p.img;img.alt=p.alt;img.style.objectFit=p.fit||'';img.style.aspectRatio=p.fit?'auto':'';
   $('#case-type').textContent=p.type;$('#case-stack').textContent=p.stack;$('#case-status').textContent=p.status;
   $('#case-problem').textContent=p.problem;$('#case-built').textContent=p.built;$('#case-result').textContent=p.result;
   var body=$('.case__body');$$('.case__extra',body).forEach(function(n){n.remove()});
@@ -262,7 +268,7 @@ function fillCase(i){
     var sh=d.createElement('div');sh.className='case__shots';
     var hd=d.createElement('h3');hd.className='mono muted';hd.textContent='Screenshots';sh.appendChild(hd);
     p.shots.forEach(function(s){
-      var f=d.createElement('figure'),im=d.createElement('img'),c=d.createElement('figcaption');
+      var f=d.createElement('figure');if(s.wide)f.className='is-wide';var im=d.createElement('img'),c=d.createElement('figcaption');
       im.src=s.src;im.alt=s.alt;im.width=s.w;im.height=s.h;im.loading='lazy';im.decoding='async';
       // Each shot links to the full-size file so phone visitors can zoom into the small labels.
       var a=d.createElement('a');a.href=s.src;a.target='_blank';a.rel='noopener';a.className='case__shot';a.appendChild(im);
@@ -443,7 +449,7 @@ later(function term(){
   var Wd=0,Hd=0,nodes=[],edges=[],adj=[],origin=0,dest=0,target=-1,path=[],pathSet={},onPath={},cum=[],plen=0;
   var ptr={x:-1e4,y:-1e4,inside:false},on=0,col={},visible=true,raf=0,t0=performance.now();
   function hex(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var n=parseInt(h,16);return [(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]}
-  function colors(){col.ink=hex(cssVar('--ink')||'#0E0E0E');col.paper=hex(cssVar('--paper')||'#F2EFE8');col.sig=hex(cssVar('--signal')||'#C8FF2E');col.route=hex(cssVar('--route')||'#0E0E0E');col.dark=isDark()?1:0}
+  function colors(){col.ink=hex(cssVar('--ink')||'#353A3F');col.paper=hex(cssVar('--paper')||'#F2F1EC');col.sig=hex(cssVar('--signal')||'#1A6BFF');col.route=hex(cssVar('--route')||'#1A6BFF');col.dark=isDark()?1:0}
   function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return ((t^t>>>14)>>>0)/4294967296}}
   function nearest(x,y){var b=0,bd=1e12;nodes.forEach(function(n,i){var dd=(n.x-x)*(n.x-x)+(n.y-y)*(n.y-y);if(dd<bd){bd=dd;b=i}});return b}
   function route(a,b){var prev=new Array(nodes.length).fill(-1),q=[a],seen={};seen[a]=1;while(q.length){var u=q.shift();if(u===b)break;adj[u].forEach(function(v){if(!seen[v]){seen[v]=1;prev[v]=u;q.push(v)}})}var p=[b];while(p[0]!==a&&prev[p[0]]>=0)p.unshift(prev[p[0]]);return p[0]===a?p:[a]}

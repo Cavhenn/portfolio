@@ -3,8 +3,8 @@
   "short_name": "Cavhen",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#F2EFE8",
-  "theme_color": "#F2EFE8",
+  "background_color": "#F2F1EC",
+  "theme_color": "#F2F1EC",
   "icons": [
     { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
