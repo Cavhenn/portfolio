@@ -115,11 +115,13 @@ runBoot();
 function fitName(){
   var h=$('.hero__name'),n=$('.name--top');if(!h||!n)return;
   var cur=parseFloat(getComputedStyle(h).fontSize)||100;
-  var ls=n.children,w=(ls[ls.length-1].offsetLeft+ls[ls.length-1].offsetWidth-ls[0].offsetLeft)||1,avail=h.clientWidth;
-  var stageH=$('.hero__stage').clientHeight;
+  // Measure the stage, not the name: the nowrap name keeps its old width, so it could never shrink after a narrowing resize.
+  var st=$('.hero__stage'),sc=getComputedStyle(st);
+  var ls=n.children,w=(ls[ls.length-1].offsetLeft+ls[ls.length-1].offsetWidth-ls[0].offsetLeft)||1,avail=st.clientWidth-parseFloat(sc.paddingLeft)-parseFloat(sc.paddingRight);
+  var stageH=st.clientHeight;
   var size=Math.min(cur*avail/w*.995,stageH*.62/0.78);
   if(Math.abs(size-cur)>.5)h.style.fontSize=size+'px';
-  var frag=$('.hero__frag');if(frag)frag.style.bottom=(size*0.78*0.5+parseFloat(getComputedStyle($('.hero__stage')).paddingBottom))+'px';
+  var frag=$('.hero__frag');if(frag)frag.style.bottom=(size*0.78*0.5+parseFloat(sc.paddingBottom))+'px';
 }
 if(d.fonts&&d.fonts.ready)d.fonts.ready.then(function(){fitName();if(hasG)ST.refresh()});else fitName();
 // On touch screens, refit only when the width changes: the address bar showing or hiding is a height-only resize.
