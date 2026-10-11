@@ -163,14 +163,15 @@ ul,ol{margin:0;padding:0;list-style:none}
 .menu-btn{display:none;font-family:var(--f-mono);font-size:var(--t-xs);min-height:44px;padding:0 4px}
 @media (max-width:860px){.nav{display:none}.menu-btn{display:inline-flex;align-items:center}.site-head__in{grid-template-columns:1fr auto}.toggle__label{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}}
 
-.menu{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:calc(env(safe-area-inset-top,0px) + 20px) var(--gutter) 32px;background:var(--ink);color:var(--paper)}
+.menu{--menu-bg:#2A2F34;--menu-fg:#E6E4DD;position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;border:0;padding:calc(env(safe-area-inset-top,0px) + 20px) var(--gutter) 32px;background:var(--menu-bg);color:var(--menu-fg)}
 .menu::backdrop{background:transparent}
 .menu[open]{display:flex;flex-direction:column;animation:menuIn .5s var(--ease)}
 @keyframes menuIn{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
 .menu__top{display:flex;justify-content:space-between;align-items:center;min-height:44px}
-.menu__close{font-family:var(--f-mono);font-size:var(--t-xs);min-height:44px;color:var(--paper)}
-.menu ol{margin-top:auto;display:grid;gap:4px}
-.menu a{display:flex;align-items:baseline;gap:16px;text-decoration:none;font-size:var(--t-3xl);line-height:1.05;color:var(--paper)}
+.menu__close{font-family:var(--f-mono);font-size:var(--t-xs);min-height:44px;color:var(--menu-fg)}
+.menu nav{margin-top:auto}
+.menu ol{display:grid;gap:4px}
+.menu a{display:flex;align-items:baseline;gap:16px;text-decoration:none;font-size:var(--t-3xl);line-height:1.05;color:var(--menu-fg)}
 .menu a span{font-family:var(--f-mono);font-size:var(--t-xs);color:#7FA8FF}
 
 .bar{position:fixed;inset:auto 0 0;z-index:50;padding-bottom:env(safe-area-inset-bottom,0px);background:var(--paper);border-top:1px solid var(--rule);transition:background-color .5s}
@@ -437,7 +438,29 @@ section{position:relative}
 .bar__label{white-space:nowrap}
 .contact__fig img{aspect-ratio:4/5;object-position:50% 30%}
 .proj__main .proj__title{grid-area:auto}
+.gridlines i{position:relative;overflow:hidden}
+.gridlines i::after{content:"";position:absolute;left:-1px;top:0;width:1px;height:16vh;background:linear-gradient(to bottom,transparent,var(--signal));opacity:0;transform:translateY(-20vh);pointer-events:none}
+@media (prefers-reduced-motion: no-preference){
+  .gridlines i:nth-child(2)::after{animation:packet 11s linear 1s infinite}
+  .gridlines i:nth-child(4)::after{animation:packet 14s linear 6s infinite}
+  .gridlines i:nth-child(7)::after{animation:packet 9s linear 3s infinite}
+  .gridlines i:nth-child(10)::after{animation:packet 12s linear 8s infinite}
+  .gridlines i:nth-child(12)::after{animation:packet 16s linear 4.5s infinite}
+}
+@keyframes packet{0%{transform:translateY(-20vh);opacity:0}8%{opacity:.7}85%{opacity:.7}100%{transform:translateY(110vh);opacity:0}}
+.spot{isolation:isolate}
+.spot::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .35s var(--ease);background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--signal) 16%,transparent),transparent 70%)}
+.spot:hover::after{opacity:1}
+.packet.spot{position:relative}
+.packet.spot::before{content:"";position:absolute;inset:-1px;z-index:-1;pointer-events:none;opacity:0;transition:opacity .35s var(--ease);border:1px solid transparent;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--signal),transparent 70%) border-box;-webkit-mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) padding-box,linear-gradient(#000 0 0);mask-composite:exclude}
+.packet.spot:hover::before{opacity:1}
+@media (hover:none){.spot::after,.packet.spot::before{display:none}}
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+/* Applied for a couple of frames while the theme flips so every element repaints once instead of animating. */
+.theme-swap,.theme-swap *,.theme-swap *::before,.theme-swap *::after{transition:none!important}
+@media (max-width:860px){.site-head.is-solid{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--paper)}}
+/* Phones: skip the full-screen grain layer and the moving gridline packets; both cost repaints and battery on every scroll. */
+@media (max-width:860px),(pointer:coarse){.grain{display:none}.gridlines i::after{display:none;animation:none}}
 
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
@@ -716,6 +739,7 @@ section{position:relative}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-<script src="app.js?v=2026-10-11d" defer></script>
+<script src="app.js?v=2026-10-11f" defer></script>
+<script src="effects.js?v=1" defer></script>
 </body>
 </html>

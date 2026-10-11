@@ -45,14 +45,24 @@ function syncTheme(){
   var dk=isDark();
   themeBtn.setAttribute('aria-pressed',String(dk));
   if(portraitSrc)portraitSrc.media=dk?'all':'not all';
+  // Keep the phone's browser bar in step with the chosen theme, not just the system one.
+  $$('meta[name="theme-color"]').forEach(function(m){m.content=dk?'#353A3F':'#F2F1EC'});
   d.dispatchEvent(new CustomEvent('cvh:theme'));
 }
 syncTheme();
 W.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){if(!root.getAttribute('data-theme'))syncTheme()});
+// Phones: the full-page circle reveal and dozens of colour transitions at once make the switch stutter.
+var lightSwitch=W.matchMedia('(pointer: coarse), (max-width: 860px)');
+var swapT;
 themeBtn.addEventListener('click',function(e){
   var next=isDark()?'light':'dark';
-  var apply=function(){root.setAttribute('data-theme',next);store.set('cvh-theme',next);syncTheme()};
-  if(d.startViewTransition&&!reduce){
+  var apply=function(){
+    root.classList.add('theme-swap');
+    root.setAttribute('data-theme',next);store.set('cvh-theme',next);syncTheme();
+    clearTimeout(swapT);
+    requestAnimationFrame(function(){requestAnimationFrame(function(){swapT=setTimeout(function(){root.classList.remove('theme-swap')},50)})});
+  };
+  if(d.startViewTransition&&!reduce&&!lightSwitch.matches){
     var r=themeBtn.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2;
     var rad=Math.hypot(Math.max(x,innerWidth-x),Math.max(y,innerHeight-y));
     d.startViewTransition(apply).ready.then(function(){
@@ -442,10 +452,13 @@ later(function term(){
 (function net(){
   var cv=$('#net');if(!cv)return;
   var mobile=W.matchMedia('(max-width: 767px), (pointer: coarse)').matches;
+  // Older phones (few cores or little memory) get a smaller canvas and fewer frames.
+  var lowEnd=mobile&&((navigator.hardwareConcurrency||8)<=4||(navigator.deviceMemory||8)<=4);
+  var gap=lowEnd?50:mobile?40:32,cap=lowEnd?1:mobile?1.25:1.5;
   var gl=null,ctx=null;
   if(!mobile){try{gl=cv.getContext('webgl',{premultipliedAlpha:true,antialias:true,alpha:true,powerPreference:'low-power'})}catch(e){gl=null}}
   if(!gl)ctx=cv.getContext('2d');
-  var dpr=Math.min(W.devicePixelRatio||1,gl?1.75:1.5);
+  var dpr=Math.min(W.devicePixelRatio||1,gl?1.75:cap);
   var Wd=0,Hd=0,nodes=[],edges=[],adj=[],origin=0,dest=0,target=-1,path=[],pathSet={},onPath={},cum=[],plen=0;
   var ptr={x:-1e4,y:-1e4,inside:false},on=0,col={},visible=true,raf=0,t0=performance.now();
   function hex(h){h=h.replace('#','');if(h.length===3)h=h.split('').map(function(c){return c+c}).join('');var n=parseInt(h,16);return [(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]}
@@ -491,7 +504,7 @@ later(function term(){
       buf.tri=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf.tri);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
       buf.line=gl.createBuffer();buf.pt=gl.createBuffer();
       gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
-    }catch(err){gl=null;var fresh=cv.cloneNode(false);cv.parentNode.replaceChild(fresh,cv);cv=fresh;ctx=cv.getContext('2d');dpr=Math.min(W.devicePixelRatio||1,1.5)}
+    }catch(err){gl=null;var fresh=cv.cloneNode(false);cv.parentNode.replaceChild(fresh,cv);cv=fresh;ctx=cv.getContext('2d');dpr=Math.min(W.devicePixelRatio||1,cap)}
   }
   // Look up shader locations once, and reuse vertex arrays between frames, so the loop allocates nothing.
   var A={},U={},LV=new Float32Array(0),PV=new Float32Array(0),li=0,pi=0;
@@ -566,10 +579,10 @@ later(function term(){
       pulses.forEach(function(p){ctx.beginPath();ctx.arc(p[0],p[1],3.5,0,6.283);ctx.fillStyle=rgba(sig,1);ctx.fill();ctx.strokeStyle=rgba(ink,1);ctx.stroke()});
     }
   }
-  // Full frame rate while the pointer is on the map; the idle drift only needs 30 fps.
+  // Full frame rate while the pointer is on the map; the idle drift only needs 30 fps (less on phones).
   var last=0;
   function frame(now){raf=0;if(!visible||d.hidden)return;
-    if(!ptr.inside&&on<.01&&now-last<32&&!reduce){raf=requestAnimationFrame(frame);return}
+    if(!ptr.inside&&on<.01&&now-last<gap&&!reduce){raf=requestAnimationFrame(frame);return}
     last=now;var t=now-t0;update(t);render(t);if(!reduce)raf=requestAnimationFrame(frame)}
   function kick(){if(!raf)raf=requestAnimationFrame(frame)}
   colors();build();
